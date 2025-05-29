@@ -1,7 +1,41 @@
-# Agile Tools Next.js 15 (shadcn) [[LIVE DEMO](#)]
+# Agile Tools [[LIVE DEMO](#)]
 
+**Agile Tools** is a modern web application built using **Next.js**, designed to support and enhance **Agile Project Management** workflows. It provides a suite of practical, lightweight tools tailored for Agile teams to plan, track, and collaborate more effectively throughout the software development lifecycle.
 
-Welcome to the **Agile Tools** repository! This Next JS app woth couple tools which can use for Agile Project Mangement.
+## 🎯 Purpose
+
+Agile Tools is designed to empower project managers, Scrum masters, product owners, and development teams with actionable utilities that make Agile methodologies more effective and easier to adopt.
+
+## 👥 Who Is It For?
+
+- Agile development teams
+- Scrum Masters and Product Owners
+- Project managers using Scrum, Kanban, or hybrid Agile practices
+- Startups and teams looking for lightweight Agile solutions
+
+## 🚀 Key Features
+
+- 📅 **Sprint Planning Assistant**  
+  Plan and allocate tasks based on team capacity and velocity.
+
+- ⚖️ **Capacity & Velocity Calculators**  
+  Estimate sprint load and evaluate team performance over time.
+
+- 📊 **Story Point Estimator**  
+  Assist teams in estimating user stories with consistency and clarity.
+
+- 📈 **Burndown & Burnup Charts**  
+  Visual tools to track sprint progress and completed work.
+
+- 🧠 **Retrospective Tools**  
+  Collect team feedback and generate action items post-sprint.
+
+- 🗃️ **Backlog Grooming Helpers**  
+  Organize and prioritize backlog items efficiently.
+
+## 🧩 Extensibility
+
+The app is modular and designed to be extended with additional tools, API integrations (e.g., Jira, GitHub), and custom dashboards as per team requirements.
 
 
 ## 🚀 What's has used to build this
