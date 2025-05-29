@@ -1,4 +1,4 @@
-# Agile Tools [[LIVE DEMO]([#](https://agile-tools-livid.vercel.app/))]
+# Agile Tools 
 
 **Agile Tools** is a modern web application built using **Next.js**, designed to support and enhance **Agile Project Management** workflows. It provides a suite of practical, lightweight tools tailored for Agile teams to plan, track, and collaborate more effectively throughout the software development lifecycle.
 
@@ -37,6 +37,10 @@ Agile Tools is designed to empower project managers, Scrum masters, product owne
 
 The app is modular and designed to be extended with additional tools, API integrations (e.g., Jira, GitHub), and custom dashboards as per team requirements.
 
+## 🚀 Live Demo
+
+🕒 It's time to explore Agile Tools in action!  
+👉 [**Click here to try the demo**](https://agile-tools-livid.vercel.app)
 
 ## 🚀 What's has used to build this
 
