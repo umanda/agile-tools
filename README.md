@@ -69,8 +69,8 @@ To enhance development experience, install the following VS Code extensions:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/siddharthamaity/nextjs-15-starter-shadcn.git
-    cd nextjs-15-starter-shadcn
+    git clone https://github.com/umanda/agile-tools.git
+    cd agile-tools
     ```
     To get the code without example change branch to without-example
     ```bash
@@ -115,11 +115,11 @@ To enhance development experience, install the following VS Code extensions:
 To use Docker, make sure Docker is installed on your machine. Then, build and run the Docker container:
 
 ```bash
-docker build . -t nextjs-starter-shadcn
+docker build . -t agile-tools
 # or if using Bun
-docker build . -t nextjs-starter-shadcn -f Dockerfile.bun
+docker build . -t agile-tools -f Dockerfile.bun
 
-docker run -p 3000:3000 nextjs-starter-shadcn
+docker run -p 3000:3000 agile-tools
 ```
 
 
