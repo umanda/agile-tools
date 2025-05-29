@@ -6,9 +6,48 @@ import { Button } from '@/registry/new-york-v4/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/registry/new-york-v4/ui/card';
 import { Calculator, RotateCcw, Clock, Target, Calendar } from 'lucide-react';
 
-const StoryPointsEstimator = () => {
-  const [estimationType, setEstimationType] = useState('story_points'); // 'story_points' or 'days'
-  const [responses, setResponses] = useState({
+// Type definitions
+interface Responses {
+  dependencies: number | null;
+  knowledge: number | null;
+  repetition: number | null;
+  complexity: number | null;
+  risk: number | null;
+  duration: number | null;
+}
+
+interface Option {
+  value: number;
+  label: string;
+  weight: number;
+}
+
+interface Question {
+  id: keyof Responses;
+  title: string;
+  description: string;
+  options: Option[];
+}
+
+interface TimeEstimation {
+  teamVelocity: number;
+  sprintLength: number;
+  bufferPercentage: number;
+  workingHoursPerDay: number;
+}
+
+interface TimeResults {
+  baseDays: number;
+  bufferedDays: number;
+  totalHours: number;
+  optimisticDays: number;
+  expectedDays: number;
+  pessimisticDays: number;
+}
+
+const StoryPointsEstimator: React.FC = () => {
+  const [estimationType, setEstimationType] = useState<'story_points' | 'days'>('story_points');
+  const [responses, setResponses] = useState<Responses>({
     dependencies: null,
     knowledge: null,
     repetition: null,
@@ -17,22 +56,22 @@ const StoryPointsEstimator = () => {
     duration: null
   });
 
-  const [storyPoints, setStoryPoints] = useState(null);
-  const [dayEstimate, setDayEstimate] = useState(null);
-  const [showResult, setShowResult] = useState(false);
+  const [storyPoints, setStoryPoints] = useState<number | null>(null);
+  const [dayEstimate, setDayEstimate] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState<boolean>(false);
   
   // Time estimation settings
-  const [timeEstimation, setTimeEstimation] = useState({
+  const [timeEstimation, setTimeEstimation] = useState<TimeEstimation>({
     teamVelocity: 20, // story points per sprint
     sprintLength: 10, // working days
     bufferPercentage: 20,
     workingHoursPerDay: 8
   });
 
-  const [showTimeEstimation, setShowTimeEstimation] = useState(false);
-  const [timeResults, setTimeResults] = useState(null);
+  const [showTimeEstimation, setShowTimeEstimation] = useState<boolean>(false);
+  const [timeResults, setTimeResults] = useState<TimeResults | null>(null);
 
-  const questions = [
+  const questions: Question[] = [
     {
       id: 'dependencies',
       title: 'Dependencies',
@@ -95,7 +134,7 @@ const StoryPointsEstimator = () => {
     }
   ];
 
-  const handleOptionSelect = (questionId, value) => {
+  const handleOptionSelect = (questionId: keyof Responses, value: number): void => {
     setResponses(prev => ({
       ...prev,
       [questionId]: value
@@ -105,19 +144,20 @@ const StoryPointsEstimator = () => {
     setDayEstimate(null);
   };
 
-  const calculateEstimation = () => {
+  const calculateEstimation = (): void => {
     const allAnswered = Object.values(responses).every(response => response !== null);
     
     if (!allAnswered) {
       alert('Please answer all questions before calculating.');
-      return;
+      
+return;
     }
 
-    const totalScore = Object.values(responses).reduce((sum, value) => sum + value, 0);
+    const totalScore = Object.values(responses).reduce((sum, value) => sum + (value || 0), 0);
     
     if (estimationType === 'story_points') {
       // Story Points calculation (Fibonacci sequence)
-      let points;
+      let points: number;
       if (totalScore <= 8) points = 1;
       else if (totalScore <= 10) points = 2;
       else if (totalScore <= 12) points = 3;
@@ -129,7 +169,7 @@ const StoryPointsEstimator = () => {
       setStoryPoints(points);
     } else {
       // Days estimation based on score
-      let days;
+      let days: number;
       if (totalScore <= 8) days = 0.5;
       else if (totalScore <= 10) days = 1;
       else if (totalScore <= 12) days = 2;
@@ -144,13 +184,14 @@ const StoryPointsEstimator = () => {
     setShowResult(true);
   };
 
-  const calculateTimeEstimation = () => {
+  const calculateTimeEstimation = (): void => {
     if (!storyPoints && !dayEstimate) {
       alert('Please calculate story points or days first.');
-      return;
+      
+return;
     }
 
-    let baseDays;
+    let baseDays: number;
     
     if (estimationType === 'story_points' && storyPoints) {
       // Convert story points to days using team velocity
@@ -158,6 +199,8 @@ const StoryPointsEstimator = () => {
       baseDays = storyPoints / pointsPerDay;
     } else if (estimationType === 'days' && dayEstimate) {
       baseDays = dayEstimate;
+    } else {
+      return; // Safety check
     }
 
     // Apply buffer percentage
@@ -181,7 +224,7 @@ const StoryPointsEstimator = () => {
     setShowTimeEstimation(true);
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setResponses({
       dependencies: null,
       knowledge: null,
@@ -197,16 +240,18 @@ const StoryPointsEstimator = () => {
     setTimeResults(null);
   };
 
-  const getScoreColor = (score) => {
+  const getScoreColor = (score: number): string => {
     if (score <= 8) return 'bg-green-100 text-green-800';
     if (score <= 12) return 'bg-yellow-100 text-yellow-800';
     if (score <= 16) return 'bg-orange-100 text-orange-800';
-    return 'bg-red-100 text-red-800';
+    
+return 'bg-red-100 text-red-800';
   };
 
-  const getProgressPercentage = () => {
+  const getProgressPercentage = (): number => {
     const answeredQuestions = Object.values(responses).filter(response => response !== null).length;
-    return (answeredQuestions / questions.length) * 100;
+    
+return (answeredQuestions / questions.length) * 100;
   };
 
   return (
@@ -323,14 +368,14 @@ const StoryPointsEstimator = () => {
                 <div className="text-lg font-semibold text-gray-700">
                   {estimationType === 'story_points' ? 'Story Points' : 'Days'}
                 </div>
-                <Badge className={`${getScoreColor(Object.values(responses).reduce((sum, value) => sum + value, 0))}`}>
-                  Total Score: {Object.values(responses).reduce((sum, value) => sum + value, 0)}/18
+                <Badge className={`${getScoreColor(Object.values(responses).reduce((sum, value) => sum + (value || 0), 0))}`}>
+                  Total Score: {Object.values(responses).reduce((sum, value) => sum + (value || 0), 0)}/18
                 </Badge>
               </div>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6 text-sm">
-              {questions.map((question, index) => (
+              {questions.map((question) => (
                 <div key={question.id} className="bg-white p-3 rounded-lg border">
                   <div className="font-medium text-gray-700">{question.title}</div>
                   <div className="text-blue-600 font-semibold">
